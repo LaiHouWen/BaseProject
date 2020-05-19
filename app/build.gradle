@@ -21,6 +21,11 @@ android {
         }
     }
 
+    //Error: Invoke-customs are only supported starting with Android O (--min-api 26)
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -31,4 +36,20 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+
+    //图片选择
+    implementation project(':ImageSelect')
+    //录音
+//    implementation project(path: ':recorderlib')
+    //banner viewpager2
+//    implementation project(path: ':banner')
+    //BaseModel 工具类
+    implementation project(path: ':BaseModel')
+
+    //item 左滑 右滑 删除
+    implementation project(path: ':SwipeMenuLayout')
+
+
 }

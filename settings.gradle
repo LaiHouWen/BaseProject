@@ -1,2 +1,3 @@
 rootProject.name='BaseProject'
-include ':app', ':BaseModel'
+include ':app', ':BaseModel', ':ImageSelect'
+include ':SwipeMenuLayout'
