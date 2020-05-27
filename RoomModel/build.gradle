@@ -2,16 +2,24 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 28
-    buildToolsVersion "29.0.1"
+    buildToolsVersion "29.0.2"
 
     defaultConfig {
-        applicationId "com.baseproject"
+        applicationId "com.roommodel"
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                //room的数据库概要、记录
+                arguments = ["room.schemaLocation":
+                                     "$projectDir/schemas".toString()]
+            }
+        }
     }
 
     buildTypes {
@@ -21,10 +29,9 @@ android {
         }
     }
 
-    //Error: Invoke-customs are only supported starting with Android O (--min-api 26)
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+    sourceSets {
+        //数据库概要、记录存放位置
+        androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
     }
 }
 
@@ -33,29 +40,24 @@ dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
-    implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
-    //图片选择
-    implementation project(':ImageSelect')
-    //录音
-//    implementation project(path: ':recorderlib')
-    //banner viewpager2
-//    implementation project(path: ':banner')
+    // 这里以 androidx 最新版为例
+    //https://mvnrepository.com/artifact/androidx.room/room-runtime
+    implementation 'androidx.room:room-runtime:2.2.5'
+//    kapt 'androidx.room:room-compiler:2.2.5'
+    annotationProcessor 'androidx.room:room-compiler:2.2.5'
+
+
     //BaseModel 工具类
     implementation project(path: ':BaseModel')
 
-    //item 左滑 右滑 删除
-    implementation project(path: ':SwipeMenuLayout')
 
-    //基于IJKPlayer 视频播放 https://github.com/CarGuo/GSYVideoPlayer
-    implementation 'com.shuyu:GSYVideoPlayer:7.1.3'
 
-    //时间选择器 https://github.com/Bigkoo/Android-PickerView
-//    implementation "com.contrarywind:Android-PickerView:4.1.9"
 
-    implementation project(path: ':httputil')
 }
